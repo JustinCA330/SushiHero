@@ -13,8 +13,8 @@ import java.awt.Toolkit;
 
 public class DeliveringCarpet {
 
-    public static final int width = 78;
-    public static final int length = 54;
+    public static final int width = 88;
+    public static final int length = 84;
     public int x, y;
     SushiClient tc;
     private static Toolkit tk = Toolkit.getDefaultToolkit();
