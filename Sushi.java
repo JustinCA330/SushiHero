@@ -36,24 +36,12 @@ public class Sushi {
     static {
 
         tankImags = new Image[]{
-            tk.getImage(CompletedOrder.class.getResource("Images/tankD.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/tankU.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/tankL.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/tankR.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankD.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankU.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankL.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankR.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankD2.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankU2.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankL2.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/HtankR2.gif")),
+            
             tk.getImage(CompletedOrder.class.getResource("Images/SojiroR.gif")),
             tk.getImage(CompletedOrder.class.getResource("Images/SojiroL.gif")),
             tk.getImage(CompletedOrder.class.getResource("Images/Player2R.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/Player2L.gif")),
-            tk.getImage(CompletedOrder.class.getResource("Images/TopTable.gif"))
-
+            tk.getImage(CompletedOrder.class.getResource("Images/Player2L.gif"))
+            
         };
     }
 
@@ -82,11 +70,11 @@ public class Sushi {
             case D:
                 if (player == 1) {
 
-                    g.drawImage(tankImags[13], x, y, null);
+                    g.drawImage(tankImags[0], x, y, null);
 
                 } else if (tc.Player2 && player == 2) {
 
-                    g.drawImage(tankImags[15], x, y, null);
+                    g.drawImage(tankImags[3], x, y, null);
 
                 }
                 break;
@@ -94,11 +82,11 @@ public class Sushi {
             case U:
                 if (player == 1) {
 
-                    g.drawImage(tankImags[12], x, y, null);
+                    g.drawImage(tankImags[1], x, y, null);
 
                 } else if (tc.Player2 && player == 2) {
 
-                    g.drawImage(tankImags[14], x, y, null);
+                    g.drawImage(tankImags[2], x, y, null);
 
                 }
                 break;
@@ -106,11 +94,11 @@ public class Sushi {
             case L:
                 if (player == 1) {
 
-                    g.drawImage(tankImags[13], x, y, null);
+                    g.drawImage(tankImags[1], x, y, null);
 
                 } else if (tc.Player2 && player == 2) {
 
-                    g.drawImage(tankImags[15], x, y, null);
+                    g.drawImage(tankImags[3], x, y, null);
 
                 }
                 break;
@@ -118,11 +106,11 @@ public class Sushi {
             case R:
                 if (player == 1) {
 
-                    g.drawImage(tankImags[12], x, y, null);
+                    g.drawImage(tankImags[0], x, y, null);
 
                 } else if (tc.Player2 && player == 2) {
 
-                    g.drawImage(tankImags[14], x, y, null);
+                    g.drawImage(tankImags[2], x, y, null);
 
                 }
                 break;
@@ -130,11 +118,11 @@ public class Sushi {
             case INITIAL:
                 if (player == 1) {
 
-                    g.drawImage(tankImags[12], x, y, null);
+                    g.drawImage(tankImags[0], x, y, null);
 
                 } else if (tc.Player2 && player == 2) {
 
-                    g.drawImage(tankImags[15], x, y, null);
+                    g.drawImage(tankImags[3], x, y, null);
 
                 }
                 break;
@@ -574,6 +562,18 @@ public class Sushi {
         if (this.live && this.getRect().intersects(w.getRect())) {
 
             this.changToOldDir();
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    public boolean collideWithChoppingBoard(ChoppingBoard w) {
+        if (this.live && this.getRect().intersects(w.getRect())) {
+
+            //this.changToOldDir();
             return true;
 
         }
