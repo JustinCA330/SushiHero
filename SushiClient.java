@@ -28,12 +28,16 @@ public class SushiClient extends Frame implements ActionListener {
 
     Image screenImage = null;
 
+    String currentIngredient = "";
+    int score = 0;
+
     List<Sushi> tanks = new ArrayList<Sushi>();
     List<Wall> unbreakableWall = new ArrayList<Wall>();
     List<FatTable> fatTable = new ArrayList<FatTable>();
     List<Carpet> carpet = new ArrayList<Carpet>();
     List<DeliveringCarpet> deliveringCarpet = new ArrayList<DeliveringCarpet>();
     List<WoodenTable> woodenTable = new ArrayList<WoodenTable>();
+    List<ChoppingBoard> choppingBoard = new ArrayList<ChoppingBoard>();
     List<Ricecooker> ricecooker = new ArrayList<Ricecooker>();
     List<Rice> rice = new ArrayList<Rice>();
     List<Seaweed> seaweed = new ArrayList<Seaweed>();
@@ -63,9 +67,16 @@ public class SushiClient extends Frame implements ActionListener {
     boolean eggAttained = false;
     boolean tunaAttained = false;
 
-    String[] orders = {"Avocado Sushi", "Egg Sushi", "Tuna-Avocado"};
+    boolean riceCooked = false;
+    boolean seaweedChopped = false;
+    boolean avocadoChopped = false;
+    boolean eggChopped = false;
+    boolean tunaChopped = false;
 
-    int score = 0;
+    boolean everythingOK = false;
+
+    String[] orders = {"Avocado Roll", "Tuna-Avocado Roll", "Tamago (Egg) Sushi"};
+    //int ordersIndex;
 
     //Money life = new Money();
     Boolean win = false, lose = false;
@@ -95,6 +106,8 @@ public class SushiClient extends Frame implements ActionListener {
 
                 unbreakableWall.add(new Wall(10 + 20 * i, 130, this));
                 unbreakableWall.add(new Wall(413 + 20 * i, 130, this));
+
+                choppingBoard.add(new ChoppingBoard(145 + 20 * i, 133, this));
 
                 fatTable.add(new FatTable(10 + 20 * i, 530, this));
                 fatTable.add(new FatTable(413 + 20 * i, 530, this));
@@ -183,12 +196,22 @@ public class SushiClient extends Frame implements ActionListener {
         //displays Current Order
         g.setColor(Color.BLACK);
         g.setFont(new Font("Eras Demi ITC", Font.BOLD, 18));
-        g.drawString("Avocado Sushi"/*homeTank2.getLife()*/, 625, 63);
+        g.drawString(orders[0], 625, 63);
 
         //displays Current Ingredient
         g.setFont(new Font("Eras Demi ITC", Font.ITALIC, 18));
-        g.drawString(displayCurrentIngredient(), 635, 95);
+        g.drawString(displayCurrentIngredient(currentIngredient), 635, 95);
 
+        //displays status of ingredients
+        g.setColor(Color.RED);
+        g.setFont(new Font("Eras Demi ITC", Font.PLAIN, 17));
+        g.drawString(displayIngredientStatus(), 10, 127);
+        
+        //displays status of rice
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Eras Demi ITC", Font.PLAIN, 17));
+        g.drawString(displayRiceStatus(), 277, 127);
+        
         //display player avatars
         homeTank.draw(g);
         if (Player2) {
@@ -228,6 +251,31 @@ public class SushiClient extends Frame implements ActionListener {
 
         }
 
+        for (int i = 0; i < choppingBoard.size(); i++) {
+
+            ChoppingBoard cb = choppingBoard.get(i);
+            homeTank.collideWithChoppingBoard(cb);
+
+            if (homeTank.collideWithChoppingBoard(cb)) {
+                if (avocadoAttained && seaweedAttained) {
+
+                    everythingOK = true;
+
+                }
+            }
+
+            if (Player2) {
+
+                homeTank2.collideWithChoppingBoard(cb);
+
+            }
+
+            cb.draw(g);
+
+        }
+
+        String ingredient = "";
+
         for (int i = 0; i < carpet.size(); i++) {
 
             Carpet ca = carpet.get(i);
@@ -249,6 +297,7 @@ public class SushiClient extends Frame implements ActionListener {
                     player1Rice = true;
                     riceAttained = true;
 
+                    //ingredient = "Rice";
                     //player2Seaweed = false;
                 }
 
@@ -260,6 +309,7 @@ public class SushiClient extends Frame implements ActionListener {
                     player1Seaweed = true;
                     seaweedAttained = true;
 
+                    //ingredient = "Seaweed";
                     //player2Seaweed = false;
                 }
 
@@ -271,6 +321,7 @@ public class SushiClient extends Frame implements ActionListener {
                     player1Avocado = true;
                     avocadoAttained = true;
 
+                    //ingredient = "Avocado";
                     //player2Avocado = false;
                 }
 
@@ -282,24 +333,40 @@ public class SushiClient extends Frame implements ActionListener {
                     player1Egg = true;
                     eggAttained = true;
 
+                    //ingredient = "Egg";
                 }
 
                 if (player2Tuna == true) {
 
                     player1Tuna = true;
                     tunaAttained = true;
+
+                    //ingredient = "Tuna";
                 }
 
             }
 
+            this.currentIngredient = ingredient;
+            //g.drawString(displayCurrentIngredient(ingredient), 635, 95);
             ca.draw(g);
 
         }
+
+        g.drawString(ingredient, 635, 95);
 
         for (int i = 0; i < deliveringCarpet.size(); i++) {
 
             DeliveringCarpet dc = deliveringCarpet.get(i);
             homeTank.collideWithDeliveringCarpet(dc);
+            
+            if (homeTank.collideWithDeliveringCarpet(dc)) {
+                if (everythingOK && riceCooked) {
+
+                    score += 12;
+
+                }
+
+            }
 
             if (Player2) {
 
@@ -331,6 +398,15 @@ public class SushiClient extends Frame implements ActionListener {
             Ricecooker rc = ricecooker.get(i);
             homeTank.collideWithRicecooker(rc);
 
+            if (homeTank.collideWithRicecooker(rc)) {
+                if (riceAttained) {
+
+                    riceCooked = true;
+
+                }
+
+            }
+
             if (Player2) {
 
                 homeTank2.collideWithRicecooker(rc);
@@ -353,11 +429,18 @@ public class SushiClient extends Frame implements ActionListener {
             }
 
             if (homeTank2.collideWithRice(r)) {
-                if (player2Rice = false) {
 
-                    player2Rice = true;
+                player1Seaweed = false;
+                player1Avocado = false;
+                player1Egg = false;
+                player1Tuna = false;
+                player2Seaweed = false;
+                player2Avocado = false;
+                player2Egg = false;
+                player2Tuna = false;
 
-                }
+                player2Rice = true;
+
             }
 
             r.draw(g);
@@ -376,6 +459,15 @@ public class SushiClient extends Frame implements ActionListener {
             }
 
             if (homeTank2.collideWithSeaweed(s)) {
+
+                player1Rice = false;
+                player1Avocado = false;
+                player1Egg = false;
+                player1Tuna = false;
+                player2Rice = false;
+                player2Avocado = false;
+                player2Egg = false;
+                player2Tuna = false;
 
                 player2Seaweed = true;
 
@@ -398,6 +490,15 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (homeTank2.collideWithAvocado(a)) {
 
+                player1Rice = false;
+                player1Seaweed = false;
+                player1Egg = false;
+                player1Tuna = false;
+                player2Rice = false;
+                player2Seaweed = false;
+                player2Egg = false;
+                player2Tuna = false;
+
                 player2Avocado = true;
 
             }
@@ -419,6 +520,14 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (homeTank2.collideWithEgg(e)) {
 
+                player1Rice = false;
+                player1Seaweed = false;
+                player1Avocado = false;
+                player1Tuna = false;
+                player2Rice = false;
+                player2Seaweed = false;
+                player2Avocado = false;
+                player2Tuna = false;
                 player2Egg = true;
 
             }
@@ -440,6 +549,15 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (homeTank2.collideWithTuna(t)) {
 
+                player1Rice = false;
+                player1Seaweed = false;
+                player1Avocado = false;
+                player1Egg = false;
+                player2Rice = false;
+                player2Seaweed = false;
+                player2Avocado = false;
+                player2Egg = false;
+
                 player2Tuna = true;
 
             }
@@ -457,51 +575,70 @@ public class SushiClient extends Frame implements ActionListener {
         }
     }
 
-    public String displayCurrentIngredient() {
+    public String displayCurrentIngredient(String i) {
 
-        String n = "none";
-        String r = "Rice";
-        String s = "Seaweed";
-        String a = "Avocado";
-        String e = "Egg";
-        String t = "Tuna";
+        if (player1Rice == true) {
 
-        if (riceAttained == true) {
-
-            return r;
+            i = "Rice";
 
         }
 
-        if (seaweedAttained == true /*&& player2Seaweed == false*/) {
+        if (player1Seaweed == true) {
 
-            return s;
-
-        }
-
-        if (avocadoAttained == true /*&& player2Avocado == false*/) {
-
-            return a;
+            i = "Seaweed";
 
         }
 
-        if (eggAttained == true) {
+        if (player1Avocado == true) {
 
-            return e;
+            i = "Avocado";
 
         }
 
-        if (tunaAttained == true) {
+        if (player1Egg == true) {
 
-            return t;
+            i = "Egg";
+
+        }
+
+        if (player1Tuna == true) {
+
+            i = "Tuna";
+
+        }
+
+        return i;
+    }
+
+    public String displayIngredientStatus() {
+
+        if (everythingOK) {
+
+            return "INGREDIENTS OK";
 
         } else {
 
-            return n;
+            return "Not all Ingredients are Chopped";
 
         }
 
     }
 
+    public String displayRiceStatus() {
+
+        if (riceCooked){
+
+            return "RICE IS READY";
+
+        } else {
+
+            return "Rice Not Ready";
+
+        }
+
+    }
+
+    //public void changeOrder()
     public void changeScore() {
 
         /*
