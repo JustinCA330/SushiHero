@@ -7,13 +7,14 @@
  * Mariko Ariane Vecta Sampaga
  *
  */
-
+import java.util.Random;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import javax.imageio.*;
 import sun.audio.*;
@@ -76,8 +77,9 @@ public class SushiClient extends Frame implements ActionListener {
     boolean everythingOK = false;
 
     String[] orders = {"Avocado Roll", "Tuna-Avocado Roll", "Tamago (Egg) Sushi"};
-    //int ordersIndex;
-
+    int index = (int)(Math.random()*orders.length);
+//int ordersIndex;
+    
     //Money life = new Money();
     Boolean win = false, lose = false;
 
@@ -196,7 +198,7 @@ public class SushiClient extends Frame implements ActionListener {
         //displays Current Order
         g.setColor(Color.BLACK);
         g.setFont(new Font("Eras Demi ITC", Font.BOLD, 18));
-        g.drawString(orders[0], 625, 63);
+        g.drawString(changeOrder(), 625, 63);
 
         //displays Current Ingredient
         g.setFont(new Font("Eras Demi ITC", Font.ITALIC, 18));
@@ -257,7 +259,7 @@ public class SushiClient extends Frame implements ActionListener {
             homeTank.collideWithChoppingBoard(cb);
 
             if (homeTank.collideWithChoppingBoard(cb)) {
-                if (avocadoAttained && seaweedAttained) {
+                if ((index == 0 && avocadoAttained && seaweedAttained) || (index ==1 && tunaAttained && avocadoAttained &&seaweedAttained) || (index == 2 && eggAttained && seaweedAttained) ) {
 
                     everythingOK = true;
 
@@ -360,10 +362,44 @@ public class SushiClient extends Frame implements ActionListener {
             homeTank.collideWithDeliveringCarpet(dc);
             
             if (homeTank.collideWithDeliveringCarpet(dc)) {
-                if (everythingOK && riceCooked) {
+                if (everythingOK && riceCooked && index ==0) {
 
                     score += 12;
-
+                    everythingOK = false;
+                    riceCooked = false;
+                    avocadoAttained = false;
+                    seaweedAttained = false;
+                    eggAttained = false;
+                    index = (int)(Math.random()*orders.length);
+                    changeOrder();
+                }else if(everythingOK && riceCooked && index ==1){
+                    score += 18;
+                    everythingOK = false;
+                    riceCooked = false;
+                    avocadoAttained = false;
+                    seaweedAttained = false;
+                    tunaAttained = false;
+                    eggAttained = false;
+                     index = (int)(Math.random()*orders.length);
+                    changeOrder();
+                }else if(everythingOK && riceCooked && index ==2){
+                    score += 8;
+                    everythingOK = false;
+                    riceCooked = false;
+                    avocadoAttained = false;
+                    seaweedAttained = false;
+                    tunaAttained = false;
+                    eggAttained = false;
+                     index = (int)(Math.random()*orders.length);
+                    changeOrder();
+                }else{
+                    /*everythingOK = false;
+                    riceCooked = false;
+                    avocadoAttained = false;
+                    seaweedAttained = false;
+                    tunaAttained = false;
+                    eggAttained = false;
+                    score -=10;*/
                 }
 
             }
@@ -574,7 +610,7 @@ public class SushiClient extends Frame implements ActionListener {
 
         }
     }
-
+    
     public String displayCurrentIngredient(String i) {
 
         if (player1Rice == true) {
@@ -639,13 +675,8 @@ public class SushiClient extends Frame implements ActionListener {
     }
 
     //public void changeOrder()
-    public void changeScore() {
-
-        /*
-        if player 1 collides with Cashier
-            if 
-        
-         */
+    public String changeOrder() {
+        return orders[index];
     }
 
     public void displayScore() {
