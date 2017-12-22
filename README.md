@@ -14,4 +14,4 @@ You control both the chef (ASDW) and the prep (arrow keys). At the top right, th
 There is a bug in which the chef can only collide with the top part of the counter.
 If all ingredients are chopped and the rice is cooked, and if the chef collides with the counter, $12 is be added to the score. 
 
-All resources self-made/own except for Avocado.gif and seaweed.png
+All resources self-made/owned except for Avocado.gif and seaweed.png
