@@ -12,4 +12,6 @@ To PLAY:
 You control both the chef (ASDW) and the prep (arrow keys). At the top right, the current order is displayed. Our program as of now is hardcoded to display "Avocado Roll" first. The prep must begin by grabbing the correct ingredients to make an avocado roll (avocado + seaweed + rice) in any order, but one at a time. As the prep delivers each ingredient the chef will now have them and be able to prepare them by either chopping them or putting the rice in the rice cooker. When all ingredients are chopped and the rice is cooked, the chef can now deliver it to the counter (leftmost table). 
 
 There is a bug in which the chef can only collide with the top part of the counter.
-If all ingredients are chopped and the rice is cooked, and if the chef collides with the counter, $12 should be added to the score. However, the score incorrectly increases by a multiple of 12.
+If all ingredients are chopped and the rice is cooked, and if the chef collides with the counter, $12 is be added to the score. 
+
+All resources self-made/own except for Avocado.gif and seaweed.png
