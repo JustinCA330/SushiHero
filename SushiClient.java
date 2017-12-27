@@ -22,7 +22,6 @@ import javax.swing.*;
 
 public class SushiClient extends Frame implements ActionListener {
 
-    //private static final long serialVersionUID = 1L;
     public static final int Fram_width = 805;
     public static final int Fram_length = 602;
     public static boolean printable = true;
@@ -32,7 +31,6 @@ public class SushiClient extends Frame implements ActionListener {
     String currentIngredient = "";
     int score = 0;
 
-    List<Sushi> tanks = new ArrayList<Sushi>();
     List<Wall> unbreakableWall = new ArrayList<Wall>();
     List<FatTable> fatTable = new ArrayList<FatTable>();
     List<Carpet> carpet = new ArrayList<Carpet>();
@@ -46,8 +44,8 @@ public class SushiClient extends Frame implements ActionListener {
     List<Egg> egg = new ArrayList<Egg>();
     List<Tuna> tuna = new ArrayList<Tuna>();
 
-    Sushi homeTank = new Sushi(145, 277, true, Direction.INITIAL, this, 1);
-    Sushi homeTank2 = new Sushi(600, 277, true, Direction.INITIAL, this, 2);
+    Sushi chef = new Sushi(145, 277, true, Direction.INITIAL, this, 1);
+    Sushi prep = new Sushi(600, 277, true, Direction.INITIAL, this, 2);
     Boolean Player2 = false;
 
     boolean player1Rice = false;
@@ -215,10 +213,10 @@ public class SushiClient extends Frame implements ActionListener {
         g.drawString(displayRiceStatus(), 277, 127);
         
         //display player avatars
-        homeTank.draw(g);
+        chef.draw(g);
         if (Player2) {
 
-            homeTank2.draw(g);
+            prep.draw(g);
 
         }
 
@@ -226,11 +224,11 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < unbreakableWall.size(); i++) {
 
             Wall w = unbreakableWall.get(i);
-            homeTank.collideWithWall(w);
+            chef.collideWithWall(w);
 
             if (Player2) {
 
-                homeTank2.collideWithWall(w);
+                prep.collideWithWall(w);
 
             }
 
@@ -241,11 +239,11 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < fatTable.size(); i++) {
 
             FatTable ft = fatTable.get(i);
-            homeTank.collideWithFatTable(ft);
+            chef.collideWithFatTable(ft);
 
             if (Player2) {
 
-                homeTank2.collideWithFatTable(ft);
+                prep.collideWithFatTable(ft);
 
             }
 
@@ -256,9 +254,9 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < choppingBoard.size(); i++) {
 
             ChoppingBoard cb = choppingBoard.get(i);
-            homeTank.collideWithChoppingBoard(cb);
+            chef.collideWithChoppingBoard(cb);
 
-            if (homeTank.collideWithChoppingBoard(cb)) {
+            if (chef.collideWithChoppingBoard(cb)) {
                 if ((index == 0 && avocadoAttained && seaweedAttained) || (index ==1 && tunaAttained && avocadoAttained &&seaweedAttained) || (index == 2 && eggAttained && seaweedAttained) ) {
 
                     everythingOK = true;
@@ -268,7 +266,7 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (Player2) {
 
-                homeTank2.collideWithChoppingBoard(cb);
+                prep.collideWithChoppingBoard(cb);
 
             }
 
@@ -281,15 +279,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < carpet.size(); i++) {
 
             Carpet ca = carpet.get(i);
-            homeTank.collideWithCarpet(ca);
+            chef.collideWithCarpet(ca);
 
             if (Player2) {
 
-                homeTank2.collideWithCarpet(ca);
+                prep.collideWithCarpet(ca);
 
             }
 
-            if (homeTank2.collideWithCarpet(ca)) {
+            if (prep.collideWithCarpet(ca)) {
 
                 if (player2Rice == true) {
 
@@ -359,9 +357,9 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < deliveringCarpet.size(); i++) {
 
             DeliveringCarpet dc = deliveringCarpet.get(i);
-            homeTank.collideWithDeliveringCarpet(dc);
+            chef.collideWithDeliveringCarpet(dc);
             
-            if (homeTank.collideWithDeliveringCarpet(dc)) {
+            if (chef.collideWithDeliveringCarpet(dc)) {
                 if (everythingOK && riceCooked && index ==0) {
 
                     score += 12;
@@ -406,7 +404,7 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (Player2) {
 
-                homeTank2.collideWithDeliveringCarpet(dc);
+                prep.collideWithDeliveringCarpet(dc);
 
             }
 
@@ -417,11 +415,11 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < woodenTable.size(); i++) {
 
             WoodenTable wt = woodenTable.get(i);
-            homeTank.collideWithWoodenTable(wt);
+            chef.collideWithWoodenTable(wt);
 
             if (Player2) {
 
-                homeTank2.collideWithWoodenTable(wt);
+                prep.collideWithWoodenTable(wt);
 
             }
 
@@ -432,9 +430,9 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < ricecooker.size(); i++) {
 
             Ricecooker rc = ricecooker.get(i);
-            homeTank.collideWithRicecooker(rc);
+            chef.collideWithRicecooker(rc);
 
-            if (homeTank.collideWithRicecooker(rc)) {
+            if (chef.collideWithRicecooker(rc)) {
                 if (riceAttained) {
 
                     riceCooked = true;
@@ -445,7 +443,7 @@ public class SushiClient extends Frame implements ActionListener {
 
             if (Player2) {
 
-                homeTank2.collideWithRicecooker(rc);
+                prep.collideWithRicecooker(rc);
 
             }
 
@@ -456,15 +454,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < rice.size(); i++) {
 
             Rice r = rice.get(i);
-            homeTank.collideWithRice(r);
+            chef.collideWithRice(r);
 
             if (Player2) {
 
-                homeTank2.collideWithRice(r);
+                prep.collideWithRice(r);
 
             }
 
-            if (homeTank2.collideWithRice(r)) {
+            if (prep.collideWithRice(r)) {
 
                 player1Seaweed = false;
                 player1Avocado = false;
@@ -486,15 +484,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < seaweed.size(); i++) {
 
             Seaweed s = seaweed.get(i);
-            homeTank.collideWithSeaweed(s);
+            chef.collideWithSeaweed(s);
 
             if (Player2) {
 
-                homeTank2.collideWithSeaweed(s);
+                prep.collideWithSeaweed(s);
 
             }
 
-            if (homeTank2.collideWithSeaweed(s)) {
+            if (prep.collideWithSeaweed(s)) {
 
                 player1Rice = false;
                 player1Avocado = false;
@@ -516,15 +514,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < avocado.size(); i++) {
 
             Avocado a = avocado.get(i);
-            homeTank.collideWithAvocado(a);
+            chef.collideWithAvocado(a);
 
             if (Player2) {
 
-                homeTank2.collideWithAvocado(a);
+                prep.collideWithAvocado(a);
 
             }
 
-            if (homeTank2.collideWithAvocado(a)) {
+            if (prep.collideWithAvocado(a)) {
 
                 player1Rice = false;
                 player1Seaweed = false;
@@ -546,15 +544,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < egg.size(); i++) {
 
             Egg e = egg.get(i);
-            homeTank.collideWithEgg(e);
+            chef.collideWithEgg(e);
 
             if (Player2) {
 
-                homeTank2.collideWithEgg(e);
+                prep.collideWithEgg(e);
 
             }
 
-            if (homeTank2.collideWithEgg(e)) {
+            if (prep.collideWithEgg(e)) {
 
                 player1Rice = false;
                 player1Seaweed = false;
@@ -575,15 +573,15 @@ public class SushiClient extends Frame implements ActionListener {
         for (int i = 0; i < tuna.size(); i++) {
 
             Tuna t = tuna.get(i);
-            homeTank.collideWithTuna(t);
+            chef.collideWithTuna(t);
 
             if (Player2) {
 
-                homeTank2.collideWithTuna(t);
+                prep.collideWithTuna(t);
 
             }
 
-            if (homeTank2.collideWithTuna(t)) {
+            if (prep.collideWithTuna(t)) {
 
                 player1Rice = false;
                 player1Seaweed = false;
@@ -603,10 +601,10 @@ public class SushiClient extends Frame implements ActionListener {
         }
 
         //player collisions with each other
-        homeTank.collideWithTanks(homeTank2);
+        chef.collideWithChef(prep);
         if (Player2) {
 
-            homeTank2.collideWithTanks(homeTank);
+            prep.collideWithChef(chef);
 
         }
     }
@@ -746,15 +744,15 @@ public class SushiClient extends Frame implements ActionListener {
 
         public void keyReleased(KeyEvent e) {
 
-            homeTank.keyReleased(e);
-            homeTank2.keyReleased(e);
+            chef.keyReleased(e);
+            prep.keyReleased(e);
 
         }
 
         public void keyPressed(KeyEvent e) {
 
-            homeTank.keyPressed(e);
-            homeTank2.keyPressed(e);
+            chef.keyPressed(e);
+            prep.keyPressed(e);
 
         }
     }

@@ -5,7 +5,6 @@
  * Mariko Ariane Vecta Sampaga
  *
  */
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -199,23 +198,23 @@ public class Sushi {
                 int mod = r.nextInt(9);
 
                 if (playertankaround()) {
-                    if (x == tc.homeTank.x) {
-                        if (y > tc.homeTank.y) {
+                    if (x == tc.chef.x) {
+                        if (y > tc.chef.y) {
 
                             direction = directons[1];
 
-                        } else if (y < tc.homeTank.y) {
+                        } else if (y < tc.chef.y) {
 
                             direction = directons[3];
 
                         }
 
-                    } else if (y == tc.homeTank.y) {
-                        if (x > tc.homeTank.x) {
+                    } else if (y == tc.chef.y) {
+                        if (x > tc.chef.x) {
 
                             direction = directons[0];
 
-                        } else if (x < tc.homeTank.x) {
+                        } else if (x < tc.chef.x) {
 
                             direction = directons[2];
 
@@ -279,7 +278,7 @@ public class Sushi {
 
         Rectangle a = new Rectangle(rx, ry, 165, 119);
 
-        if (this.live && a.intersects(tc.homeTank.getRect())) {
+        if (this.live && a.intersects(tc.chef.getRect())) {
 
             return true;
 
@@ -347,9 +346,9 @@ public class Sushi {
                     /*tc.bullets.clear();
                     tc.otherWall.clear();
                     tc.Wall.clear();*/
-                    tc.homeTank.setLive(false);
+                    tc.chef.setLive(false);
 
-                    tc.homeTank = new Sushi(300, 560, true, Direction.STOP, tc, 0);
+                    tc.chef = new Sushi(300, 560, true, Direction.STOP, tc, 0);
 
                     SushiClient abc = new SushiClient();
 
@@ -659,11 +658,11 @@ public class Sushi {
 
     }
 
-    public boolean collideWithTanks(Sushi w) {
-        if (this.live && this.getRect().intersects(w.getRect())) {
+    public boolean collideWithChef(Sushi s) {
+        if (this.live && this.getRect().intersects(s.getRect())) {
 
             this.changToOldDir();
-            w.changToOldDir();
+            s.changToOldDir();
             return true;
 
         }
