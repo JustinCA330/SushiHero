@@ -1,7 +1,7 @@
 # csc413-secondgame
 
 Justin Abarquez 911062131 justincabarquez@gmail.com
-Mariko Ariane Vecta Sampaga 909519291 mariko.vecta@gmail.com
+Mariko Ariane Vecta Sampaga 909519291 mariko.sampaga@gmail.com
 
 - Second Game Choice : Sushi Restaurant Simulator (self-chosen)
 
