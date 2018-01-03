@@ -1,5 +1,8 @@
 # csc413-secondgame
 
+![screen shot 2017-12-27 at 11 49 47 am](https://user-images.githubusercontent.com/31449701/34505029-589599f4-efd7-11e7-8f82-00ea34fa85b0.jpg)
+
+
 Justin Abarquez 911062131 justincabarquez@gmail.com
 Mariko Ariane Vecta Sampaga 909519291 mariko.vecta@gmail.com
 
